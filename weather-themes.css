@@ -1,0 +1,211 @@
+
+body.theme-sunny {
+  --bg-color:     #fde8c8;
+  --bg-pattern:   radial-gradient(circle at 20% 50%, #ffcf9d44 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, #ffd0a044 0%, transparent 40%);
+  --scene-sky:    linear-gradient(180deg, #ffe8a0 0%, #fff3c8 60%, #fff8e8 100%);
+  --ground-color: #c8e89a;
+  --cat-body:     #f5cba7;
+  --cat-stripe:   #e8a265;
+  --cat-ear-inner:#ffb3c6;
+}
+
+/* Sun element */
+body.theme-sunny .scene-element.sun {
+  display: block;
+  top: 16px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  background: #ffda44;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 6px rgba(255,218,68,0.3),
+    0 0 0 12px rgba(255,218,68,0.15);
+  animation: sunPulse 3s ease-in-out infinite, floatElement 8s ease-in-out infinite alternate;
+}
+
+@keyframes sunPulse {
+  0%, 100% { box-shadow: 0 0 0 6px rgba(255,218,68,0.3), 0 0 0 12px rgba(255,218,68,0.15); }
+  50%       { box-shadow: 0 0 0 10px rgba(255,218,68,0.25), 0 0 0 20px rgba(255,218,68,0.1); }
+}
+
+
+body.theme-cloudy {
+  --bg-color:     #ddd6f3;
+  --bg-pattern:   radial-gradient(ellipse at 60% 30%, #c9b8e844 0%, transparent 60%);
+  --scene-sky:    linear-gradient(180deg, #c8d8e8 0%, #dce8f0 60%, #eef2f8 100%);
+  --ground-color: #b0cca8;
+  --cat-body:     #e8d0c0;
+  --cat-stripe:   #c8a898;
+  --cat-ear-inner:#e8b0c0;
+}
+
+/* Pixel cloud helpers are drawn by weather-controller.js */
+body.theme-cloudy .cloud-puff {
+  background: rgba(255,255,255,0.85);
+  border-radius: 50%;
+  position: absolute;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+
+body.theme-rainy {
+  --bg-color:     #c8d8f0;
+  --bg-pattern:   linear-gradient(180deg, #b8ccee00 0%, #b8cceec0 100%);
+  --scene-sky:    linear-gradient(180deg, #8aabcc 0%, #b0c8e0 50%, #ccdcee 100%);
+  --ground-color: #889978;
+  --cat-body:     #e0c8b8;
+  --cat-stripe:   #b8a090;
+  --cat-ear-inner:#d89090;
+}
+
+/* Rain droplets — animated in JS, styled here */
+.raindrop {
+  position: absolute;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, transparent, rgba(180,220,255,0.8));
+  animation: fall linear infinite;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  from { transform: translateY(-20px) rotate(10deg); opacity: 0.8; }
+  to   { transform: translateY(110vh) rotate(10deg); opacity: 0.3; }
+}
+
+
+body.theme-snowy {
+  --bg-color:     #e8e0f8;
+  --bg-pattern:   radial-gradient(circle at 50% 100%, #c8d8f844 0%, transparent 60%);
+  --scene-sky:    linear-gradient(180deg, #c0d4ee 0%, #dce8f4 60%, #eef4ff 100%);
+  --ground-color: #e8f0f8;
+  --cat-body:     #f0e0d0;
+  --cat-stripe:   #d8c0b0;
+  --cat-ear-inner:#f8c0d0;
+}
+
+/* Snowflakes — positioned by JS, styled here */
+.snowflake {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  animation: snowFall linear infinite;
+  pointer-events: none;
+}
+
+@keyframes snowFall {
+  0%   { transform: translateY(-10px) translateX(0) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(110vh) translateX(40px) rotate(360deg); opacity: 0.4; }
+}
+
+
+body.theme-stormy {
+  --bg-color:     #8878b0;
+  --bg-pattern:   none;
+  --scene-sky:    linear-gradient(180deg, #3a3058 0%, #5a4880 50%, #7a6898 100%);
+  --ground-color: #606858;
+  --cat-body:     #c8b8a8;
+  --cat-stripe:   #a09080;
+  --cat-ear-inner:#c090a0;
+}
+
+/* Lightning flash overlay */
+@keyframes lightning {
+  0%, 89%, 100%    { opacity: 0; }
+  90%, 92%, 94%    { opacity: 0.4; }
+  91%, 93%         { opacity: 0; }
+}
+
+body.theme-stormy .window-scene::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  background: rgba(255,255,240,0.6);
+  pointer-events: none;
+  animation: lightning 8s infinite;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: rgba(255,255,240,0.6);
+}
+
+
+body.theme-foggy {
+  --bg-color:     #d8d4e8;
+  --bg-pattern:   none;
+  --scene-sky:    linear-gradient(180deg, #c8c8d8 0%, #d8d8e0 100%);
+  --ground-color: #c0c0b8;
+  --cat-body:     #e4d8cc;
+  --cat-stripe:   #c8bcb0;
+  --cat-ear-inner:#e0b8c0;
+}
+
+
+.fog-layer {
+  position: absolute;
+  left: -20%; right: -20%;
+  height: 40px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  filter: blur(12px);
+  animation: fogDrift linear infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes fogDrift {
+  from { transform: translateX(-10%); opacity: 0.5; }
+  to   { transform: translateX(10%);  opacity: 0.8; }
+}
+
+
+body.theme-night {
+  --bg-color:     #2a2048;
+  --bg-pattern:   radial-gradient(circle at 70% 20%, #4a3878 0%, transparent 50%);
+  --scene-sky:    linear-gradient(180deg, #0a0820 0%, #1e1840 50%, #2e2858 100%);
+  --ground-color: #303858;
+  --cat-body:     #d0c0e0;
+  --cat-stripe:   #a090c0;
+  --cat-ear-inner:#c080b0;
+}
+
+/* Stars rendered by JS as tiny dots */
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.2; transform: scale(0.8); }
+  to   { opacity: 1;   transform: scale(1.2); }
+}
+
+/* Moon */
+body.theme-night .scene-element.moon {
+  display: block;
+  top: 14px;
+  right: 18px;
+  width: 28px;
+  height: 28px;
+  background: #fff8d0;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(255,248,200,0.5);
+  animation: floatElement 10s ease-in-out infinite alternate;
+}
+
+/* Mask to make crescent */
+body.theme-night .scene-element.moon::before {
+  content: '';
+  position: absolute;
+  top: -3px; left: 6px;
+  width: 24px; height: 24px;
+  background: var(--scene-sky, #1e1840);
+  background: #1e1840;
+  border-radius: 50%;
+}

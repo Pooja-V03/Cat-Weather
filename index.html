@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cat & Weather</title>
+
+  <!-- ── Stylesheets (order matters) ── -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/window.css" />
+  <link rel="stylesheet" href="css/cat.css" />
+  <link rel="stylesheet" href="css/weather-themes.css" />
+</head>
+
+<body class="theme-cloudy">
+
+ 
+  <div id="particle-layer" aria-hidden="true"></div>
+
+  
+  <div class="app-shell">
+
+    
+    <div class="search-bar">
+      <input
+        id="city-input"
+        type="text"
+        placeholder="Enter city…"
+        value="Tokyo"
+        autocomplete="off"
+        aria-label="City name"
+      />
+      <button id="search-btn" aria-label="Search">GO ▶</button>
+    </div>
+
+    
+    <div class="widget-frame" role="region" aria-label="Weather widget">
+
+      <div class="title-bar">
+        <div class="title-bar__dots">
+          <div class="title-bar__dot title-bar__dot--red"    title="Close"></div>
+          <div class="title-bar__dot title-bar__dot--yellow" title="Minimize"></div>
+          <div class="title-bar__dot title-bar__dot--green"  title="Maximize"></div>
+        </div>
+        <span class="title-bar__label" id="title-label">☁ cat&weather.widget</span>
+      </div>
+
+     
+      <div class="window-scene" id="window-scene" aria-hidden="true">
+        
+        <div class="window-glass" id="window-glass"></div>
+      </div>
+
+      
+      <div class="scene-deco" id="scene-deco" aria-hidden="true"></div>
+
+      
+      <div class="window-sill">
+
+
+        <div class="cat-container" tabindex="0" role="button" aria-label="Pet the cat">
+          <div class="thought-bubble" aria-live="polite">loading...</div>
+
+          <div class="cat-sprite" id="cat-sprite">
+            <svg viewBox="0 0 32 36" xmlns="http://www.w3.org/2000/svg"
+                 shape-rendering="crispEdges" aria-hidden="true">
+
+
+              <g class="cat-tail-group">
+                <rect class="cat-body"   x="2"  y="28" width="4" height="4"/>
+                <rect class="cat-stripe" x="2"  y="26" width="4" height="2"/>
+                <rect class="cat-body"   x="4"  y="32" width="4" height="2"/>
+                <rect class="cat-stripe" x="6"  y="30" width="2" height="4"/>
+              </g>
+
+              
+              <rect class="cat-body"   x="8"  y="20" width="16" height="12"/>
+              <rect class="cat-stripe" x="10" y="22" width="3"  height="7"/>
+              <rect class="cat-stripe" x="15" y="22" width="3"  height="7"/>
+              
+              <rect fill="rgba(255,255,255,0.5)" x="12" y="23" width="8" height="6" rx="1"/>
+
+             
+              <rect class="cat-body" x="10" y="30" width="4" height="4" rx="1"/>
+              <rect class="cat-body" x="18" y="30" width="4" height="4" rx="1"/>
+              
+              <rect fill="rgba(0,0,0,0.12)" x="11" y="33" width="1" height="1"/>
+              <rect fill="rgba(0,0,0,0.12)" x="13" y="33" width="1" height="1"/>
+              <rect fill="rgba(0,0,0,0.12)" x="19" y="33" width="1" height="1"/>
+              <rect fill="rgba(0,0,0,0.12)" x="21" y="33" width="1" height="1"/>
+
+
+              <rect class="cat-body" x="8"  y="8"  width="16" height="14" rx="2"/>
+
+              
+              <rect class="cat-body"      x="8"  y="4"  width="5" height="6"/>
+              <rect class="cat-ear-inner" x="9"  y="5"  width="3" height="4"/>
+              <rect class="cat-body"      x="19" y="4"  width="5" height="6"/>
+              <rect class="cat-ear-inner" x="20" y="5"  width="3" height="4"/>
+              
+              <rect class="cat-body" x="8"  y="3" width="3" height="2"/>
+              <rect class="cat-body" x="21" y="3" width="3" height="2"/>
+
+              
+              <g class="cat-eyes">
+                
+                <rect class="cat-eye" x="11" y="12" width="3" height="3" rx="1"/>
+                
+                <rect fill="rgba(255,255,255,0.5)" x="13" y="12" width="1" height="1"/>
+                
+                <rect class="cat-eye" x="18" y="12" width="3" height="3" rx="1"/>
+                <rect fill="rgba(255,255,255,0.5)" x="20" y="12" width="1" height="1"/>
+              </g>
+
+              
+              <rect class="cat-nose" x="15" y="16" width="2" height="2" rx="1"/>
+
+              
+              <rect fill="rgba(61,43,74,0.4)" x="5"  y="17" width="6" height="1"/>
+              <rect fill="rgba(61,43,74,0.4)" x="5"  y="19" width="6" height="1"/>
+              <rect fill="rgba(61,43,74,0.4)" x="21" y="17" width="6" height="1"/>
+              <rect fill="rgba(61,43,74,0.4)" x="21" y="19" width="6" height="1"/>
+
+              
+              <rect class="cat-cheek" x="10" y="16" width="4" height="3" rx="2"/>
+              <rect class="cat-cheek" x="18" y="16" width="4" height="3" rx="2"/>
+
+              
+              <g class="cat-accessory" id="cat-accessory"></g>
+
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    
+    <div class="weather-info" id="weather-info" aria-live="polite">
+      <div class="city-name" id="city-name">— —</div>
+      <div class="mood-label" id="mood-label">Loading weather…</div>
+      <div class="temp-row">
+        <span class="temp-main" id="temp-c">--°C</span>
+        <span class="temp-meta" id="temp-f">/ --°F</span>
+      </div>
+      <div class="detail-pills">
+        <span class="pill" id="pill-humidity">💧 --%</span>
+        <span class="pill" id="pill-wind">💨 -- km/h</span>
+        <span class="pill" id="pill-desc">☁ --</span>
+      </div>
+    </div>
+
+    
+    <div class="status-msg" id="status-msg" role="alert"></div>
+
+  </div>
+
+  
+  <script type="module">
+    import { fetchWeather }          from "./js/api.js";
+    import { applyWeatherTheme,
+             clearWeatherEffects }   from "./js/weather-controller.js";
+    import { applyCatState }         from "./js/cat-controller.js";
+
+  
+    const cityInput  = document.getElementById("city-input");
+    const searchBtn  = document.getElementById("search-btn");
+    const statusMsg  = document.getElementById("status-msg");
+    const titleLabel = document.getElementById("title-label");
+
+  
+    const cityNameEl  = document.getElementById("city-name");
+    const moodLabelEl = document.getElementById("mood-label");
+    const tempCEl     = document.getElementById("temp-c");
+    const tempFEl     = document.getElementById("temp-f");
+    const humidityEl  = document.getElementById("pill-humidity");
+    const windEl      = document.getElementById("pill-wind");
+    const descEl      = document.getElementById("pill-desc");
+
+  
+    function updateInfoPanel(data) {
+      cityNameEl.textContent  = `${data.city}, ${data.country}`;
+      moodLabelEl.textContent = data.mood_label;
+      tempCEl.textContent     = `${data.temperature_c}°C`;
+      tempFEl.textContent     = `/ ${data.temperature_f}°F`;
+      humidityEl.textContent  = `💧 ${data.humidity}%`;
+      windEl.textContent      = `💨 ${data.wind_speed_kmh} km/h`;
+      descEl.textContent      = `✦ ${data.description}`;
+      titleLabel.textContent  = `☁ ${data.city.toLowerCase()}.widget`;
+    }
+
+    
+    function showStatus(msg, duration = 4000) {
+      statusMsg.textContent = msg;
+      statusMsg.classList.add("visible");
+      setTimeout(() => statusMsg.classList.remove("visible"), duration);
+    }
+
+    
+    async function loadWeather(city) {
+      searchBtn.disabled = true;
+      searchBtn.textContent = "…";
+
+      try {
+        clearWeatherEffects();
+
+        const data = await fetchWeather(city);
+
+        // Hand data to each controller independently
+        applyWeatherTheme(data);  // visuals / particles
+        applyCatState(data);      // cat animation / thoughts
+        updateInfoPanel(data);    // text info panel
+
+      } catch (err) {
+        showStatus(`😿 ${err.message || "Could not load weather"}`);
+      } finally {
+        searchBtn.disabled = false;
+        searchBtn.textContent = "GO ▶";
+      }
+    }
+
+    
+    searchBtn.addEventListener("click", () => {
+      const city = cityInput.value.trim();
+      if (city) loadWeather(city);
+    });
+
+    cityInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const city = cityInput.value.trim();
+        if (city) loadWeather(city);
+      }
+    });
+
+    
+    loadWeather(cityInput.value);
+  </script>
+
+</body>
+</html>
