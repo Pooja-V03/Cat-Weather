@@ -1,21 +1,3 @@
-/* ═══════════════════════════════════════════
-   cat.css — Pure CSS Pixel Art Cat Character
-   ═══════════════════════════════════════════
-
-   The cat is built entirely from CSS box-shadow
-   pixels on a 1px × 1px element. This keeps it
-   framework-free and scalable.
-
-   Cat anatomy:
-   ┌─────────────────────────────────────────┐
-   │  [ears] [ears]                          │
-   │  [head / face]                          │
-   │  [body]                                 │
-   │  [tail]      [paws]                     │
-   └─────────────────────────────────────────┘
-═══════════════════════════════════════════ */
-
-/* ── Container ─────────────────────────────────────────────────────── */
 .cat-container {
   position: absolute;
   bottom: 10px;
@@ -28,22 +10,22 @@
   cursor: pointer;
 }
 
-/* ── Cat Sprite ─────────────────────────────────────────────────────── */
 .cat-sprite {
   image-rendering: pixelated;
   position: relative;
   width: 64px;
   height: 72px;
+  animation: catBreathe 3s ease-in-out infinite;
+  transform-origin: center bottom;
+  transition: filter var(--transition-slow);
 }
 
-/* SVG-based pixel cat (inline in HTML, styled via CSS classes) */
 .cat-sprite svg {
   width: 64px;
   height: 72px;
   overflow: visible;
 }
 
-/* Cat body colour driven by weather state */
 .cat-body      { fill: var(--cat-body, #f5cba7); }
 .cat-stripe    { fill: var(--cat-stripe, #e8a87c); }
 .cat-ear-inner { fill: var(--cat-ear-inner, #ffb3c6); }
@@ -52,40 +34,32 @@
 .cat-cheek     { fill: var(--cat-cheek, rgba(255,150,150,0.35)); }
 .cat-accessory { fill: var(--cat-accessory, none); }
 
-/* ── Idle Animations ────────────────────────────────────────────────── */
-
-/* Breathing bob */
 @keyframes catBreathe {
   0%, 100% { transform: translateY(0) scaleY(1); }
   50%       { transform: translateY(-3px) scaleY(1.02); }
 }
 
-/* Tail wag */
 @keyframes tailWag {
   0%, 100% { transform: rotate(-15deg); }
   50%       { transform: rotate(15deg); }
 }
 
-/* Blink */
 @keyframes catBlink {
   0%, 94%, 100% { transform: scaleY(1); }
   96%, 98%      { transform: scaleY(0.05); }
 }
 
-/* Happy bounce (sunny) */
 @keyframes catBounce {
   0%, 100% { transform: translateY(0); }
   30%       { transform: translateY(-10px); }
   60%       { transform: translateY(-4px); }
 }
 
-/* Cozy sway (rainy) */
 @keyframes catSway {
   0%, 100% { transform: rotate(-2deg); }
   50%       { transform: rotate(2deg); }
 }
 
-/* Shiver (snowy) */
 @keyframes catShiver {
   0%, 100% { transform: translateX(0); }
   20%       { transform: translateX(-2px); }
@@ -94,24 +68,9 @@
   80%       { transform: translateX(1px); }
 }
 
-@keyframes catShiver {
-  0%, 100% { transform: translateX(0); }
-  20%       { transform: translateX(-2px); }
-  40%       { transform: translateX(2px); }
-  60%       { transform: translateX(-1px); }
-  80%       { transform: translateX(1px); }
-}
-
-/* Peek (night) */
 @keyframes catPeek {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-6px); }
-}
-
-/* ── Default state ──────────────────────────────────────────────────── */
-.cat-sprite {
-  animation: catBreathe 3s ease-in-out infinite;
-  transform-origin: center bottom;
 }
 
 .cat-tail-group {
@@ -124,38 +83,14 @@
   animation: catBlink 4s step-end infinite;
 }
 
-/* ── Behaviour classes (applied by cat-controller.js) ──────────────── */
+.cat-sprite.state-sunny  { animation: catBounce 1.8s ease-in-out infinite; }
+.cat-sprite.state-cloudy { animation: catBreathe 4s ease-in-out infinite; }
+.cat-sprite.state-rainy  { animation: catSway 5s ease-in-out infinite; }
+.cat-sprite.state-snowy  { animation: catShiver 0.4s ease-in-out infinite; }
+.cat-sprite.state-stormy { animation: catShiver 0.25s ease-in-out infinite; }
+.cat-sprite.state-foggy  { animation: catBreathe 6s ease-in-out infinite; opacity: 0.9; }
+.cat-sprite.state-night  { animation: catPeek 4s ease-in-out infinite; }
 
-.cat-sprite.state-sunny {
-  animation: catBounce 1.8s ease-in-out infinite;
-}
-
-.cat-sprite.state-cloudy {
-  animation: catBreathe 4s ease-in-out infinite;
-}
-
-.cat-sprite.state-rainy {
-  animation: catSway 5s ease-in-out infinite;
-}
-
-.cat-sprite.state-snowy {
-  animation: catShiver 0.4s ease-in-out infinite;
-}
-
-.cat-sprite.state-stormy {
-  animation: catShiver 0.25s ease-in-out infinite;
-}
-
-.cat-sprite.state-foggy {
-  animation: catBreathe 6s ease-in-out infinite;
-  opacity: 0.9;
-}
-
-.cat-sprite.state-night {
-  animation: catPeek 4s ease-in-out infinite;
-}
-
-/* ── Thought bubble ─────────────────────────────────────────────────── */
 .thought-bubble {
   position: absolute;
   top: -52px;
@@ -193,7 +128,13 @@
   transform: translateX(-20%) translateY(-4px);
 }
 
-/* ── Transition ─────────────────────────────────────────────────────── */
-.cat-sprite {
-  transition: filter var(--transition-slow);
+@media (max-width: 480px) {
+  .thought-bubble { opacity: 1; font-size: 6px; top: -46px; padding: 4px 8px; }
+  .cat-sprite { width: 56px; height: 64px; }
+  .cat-sprite svg { width: 56px; height: 64px; }
+}
+
+@media (max-width: 360px) {
+  .cat-sprite { width: 48px; height: 56px; }
+  .cat-sprite svg { width: 48px; height: 56px; }
 }
