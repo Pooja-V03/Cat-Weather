@@ -1,6 +1,6 @@
 
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = "https://cat-weather.onrender.com";
 
 /**
  * Fetch weather data for a given city.
