@@ -2,7 +2,7 @@
 
 A cozy pixel-art weather widget where your local forecast meets a very opinionated cat.
 
-🌐 **Live Demo → [cat-weather-app-five.vercel.app](https://cat-weather-app-five.vercel.app/)**
+🌐 **Live Demo → [cat-weather-app-five.vercel.app](https://habit-os-1.onrender.com)**
 
 ---
 
