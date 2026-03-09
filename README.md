@@ -24,7 +24,7 @@ Search any city and watch the scene transform — sunny skies, stormy nights, so
 - Frontend — Vanilla HTML, CSS, JavaScript
 - Backend — FastAPI + httpx
 - Weather data — OpenWeatherMap API
-- Frontend deployed on Vercel
+- Frontend deployed on Render
 - Backend deployed on Render
 
 ## Project Structure
