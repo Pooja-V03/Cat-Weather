@@ -2,7 +2,7 @@
 
 A cozy pixel-art weather widget where your local forecast meets a very opinionated cat.
 
-🌐 **Live Demo → [LINK](https://habit-os-1.onrender.com)**
+🌐 **Live Demo → [LINK](https://cat-weather-app-five.vercel.app/)**
 
 ---
 
@@ -24,7 +24,7 @@ Search any city and watch the scene transform — sunny skies, stormy nights, so
 - Frontend — Vanilla HTML, CSS, JavaScript
 - Backend — FastAPI + httpx
 - Weather data — OpenWeatherMap API
-- Frontend deployed on Render
+- Frontend deployed on Vercel
 - Backend deployed on Render
 
 ## Project Structure
